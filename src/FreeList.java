@@ -12,6 +12,8 @@ public class FreeList {
     Node head;
     Node tail;
 
+    int length;
+
     public Node getHead() {
         return head;
     }
@@ -20,11 +22,13 @@ public class FreeList {
     public FreeList() {
         this.head = null;
         this.tail = null;
+        this.length = 0;
     }
 
     public FreeList(int headVal) {
         this.head = new Node(headVal);
         this.tail = this.head;
+        this.length = 1;
     }
 
     //get Nth Node in free list, return the value of node
@@ -40,8 +44,17 @@ public class FreeList {
 
     //append a node to the end of free list
     public void append(int val) {
+        this.length++;
+        if (tail == null) {
+            head = new Node(val);
+            tail = head;
+            return;
+        }
         tail.next = new Node(val);
         tail = tail.next;
     }
 
+    public int total() {
+        return this.length;
+    }
 }
